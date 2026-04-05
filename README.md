@@ -15,7 +15,7 @@ https://orionmetrics.pronotif.tech/
 ``` 
 3. Set the width/height (Recommended: 1200x400 for line display or 400x1500 for vertical).<br>
 
-<small>NOTE: The background is transparent and you cannot change it for now</small>
+<small>NOTE: The background is transparent by default, but it can be customized (see below).</small>
 
 ## Custom Settings
 You can customize the overlay by adding **URL Parameters** to the end of the link :
@@ -44,7 +44,13 @@ Toggle language for labels and numbers mapping
 - **French**: *(Default)* `?lang=fr`
 - **English**: `?lang=en`
 
-#### Example UR: `https://orionmetrics.pronotif.tech/?unit=metric&style=default&progress=false`
+### Backgrounds
+Improve visibility over different video feeds by adding a background behind the HUDs
+- **Transparent**: *(Default)* No background
+- **Frosted Dark**: `?bg=darker` Adds a semitransparent blurred dark tint
+- **Solid Black**: `?bg=solid-black` Adds an opaque black background
+
+#### Example UR: `https://orionmetrics.pronotif.tech/?unit=metric&style=default&progress=false&bg=darker`
 
 ## Technical Note
 **Data Accuracy:** This tool uses raw vectors from the NASA AROW API. Because these are converted from Imperial back to Metric, calculations may slightly divert from reality due to rounding and vector projection. Sorry..

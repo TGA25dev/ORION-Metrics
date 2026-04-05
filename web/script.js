@@ -1,5 +1,12 @@
   const params = new URLSearchParams(window.location.search); //look for settings in query params
   
+  const bgType = params.get('bg');
+  if (bgType === 'darker') {
+    document.body.classList.add('bg-darker');
+  } else if (bgType === 'solid-black') {
+    document.body.classList.add('bg-solid-black');
+  }
+
   if (params.get('style') === 'orange') {
     document.body.classList.add('orange');
   }

@@ -5,6 +5,33 @@
     --prog-shadow: rgba(148, 188, 186, 0.8);
     --unit-color: #c0c0c0;
     --prog-display: none;
+    --hud-bg: transparent;
+    --hud-blur: blur(0px);
+  }
+
+  body {
+    --text-color: #ffffff;
+    --text-shadow: 0px 0px 8px rgba(255,255,255,0.4), 1px 1px 6px rgba(0,0,0,0.8);
+    --label-color: #e7e7e7;
+    --label-shadow: 1px 1px 8px rgba(0,0,0,0.9), 0px 0px 4px rgba(0,0,0,0.8);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--text-color);
+  }
+
+  body.bg-darker {
+    --hud-bg: rgba(0, 0, 0, 0.7);
+    --hud-blur: blur(8px);
+  }
+
+  body.bg-solid-black {
+    --hud-bg: #111111;
+    --hud-blur: blur(0px);
   }
 
   body.orange {
@@ -17,17 +44,6 @@
 
   body.show-progress {
     --prog-display: block;
-  }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    color: white;
   }
 
   .dashboard-container {
@@ -57,6 +73,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--hud-bg);
+    backdrop-filter: var(--hud-blur);
+    -webkit-backdrop-filter: var(--hud-blur);
   }
 
   .progress {
@@ -88,9 +107,9 @@
     font-size: 42px;
     letter-spacing: 2px;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-color);
     line-height: 1;
-    text-shadow: 0px 0px 8px rgba(255,255,255,0.4);
+    text-shadow: var(--text-shadow);
   }
 
   .unit {
@@ -98,7 +117,8 @@
     letter-spacing: 2.3px;
     margin-top: 4px;
     font-weight: 300;
-    color: var(--unit-color); 
+    color: var(--unit-color);
+    text-shadow: var(--label-shadow);
   }
 
   .label {
@@ -108,5 +128,11 @@
     text-align: center;
     line-height: 1.1;
     letter-spacing: 4px;
-    color: #e7e7e7;
+    color: var(--label-color);
+    text-shadow: var(--label-shadow);
+    background-color: var(--hud-bg);
+    backdrop-filter: var(--hud-blur);
+    -webkit-backdrop-filter: var(--hud-blur);
+    padding: 10px 24px;
+    border-radius: 15px;
   }
