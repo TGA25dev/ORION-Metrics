@@ -1,0 +1,55 @@
+# ORION Metrics <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" />
+
+**ORION Metrics** is an open-source telemetry overlay for NASA's Artemis II mission. I fetches the offial [ARROW]() website data stream and provides real time unit conversion and a broadcast ready interface.
+
+<img src="img/banner.png" alt="Telemetry Banner">
+
+# Getting Started (Streamers) 
+You can integrate the overlay directly into **OBS Studio**, **Streamlabs**, or any broadcasting software as a **Browser Source**
+
+1. Create a new **Browser Source**
+2. Set the URL to:
+
+``` plaintext
+url coming soon...
+``` 
+3. Set the width/height (Recommended: 1200x400 for line display or 400x1500 for vertical).<br>
+
+<small>NOTE: The background is transparent and you cannot change it for now</small>
+
+## Custom Settings
+You can customize the overlay by adding **URL Parameters** to the end of the link :
+### Units
+Toggle between Metric and Imperial
+- **Metric**: `?unit=metric` *(Default)* Displays in km and km/H
+- **Imperial**: `?unit=imperial` Displays in miles and mph
+
+### Color Themes
+Change the color theme of the overlay
+<img src="img/speed_orange_progress_metric.png">
+<img src="img/speed_default_progress_metric.png">
+
+- **Default**: *(Default)* `?style=default`
+- **Orange**: `style=orange`
+
+### Progress Bar
+Disable or Enable the progress bar around the circles
+<img src="img/speed_default_noprogress_imperial.png">
+<img src="img/speed_default_progress_metric.png">
+- **Enable**: *(Default)* `?progress=true`
+- **Disable**: `?progress=false`
+
+### Language
+Toggle language for labels and numbers mapping
+- **French**: *(Default)* `?lang=fr`
+- **English**: `?lang=en`
+
+#### Example UR: `https://comingsoon?unit=metric&style=default&progress=false`
+
+## Technical Note
+**Data Accuracy:** This tool uses raw vectors from the NASA AROW API. Because these are converted from Imperial back to Metric, calculations may slightly divert from reality due to rounding and vector projection. Sorry..
+
+## License
+Distributed under the MIT License (See [LICENSE](LICENSE.md) file for more information)
+Built with ❤ for the space community
+
