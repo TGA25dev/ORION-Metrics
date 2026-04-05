@@ -4,14 +4,14 @@
 
 <img src="img/banner.png" alt="Telemetry Banner">
 
-# Getting Started (Streamers) 
+# Getting Started 
 You can integrate the overlay directly into **OBS Studio**, **Streamlabs**, or any broadcasting software as a **Browser Source**
 
 1. Create a new **Browser Source**
 2. Set the URL to:
 
 ``` plaintext
-url coming soon...
+https://orionmetrics.pronotif.tech/
 ``` 
 3. Set the width/height (Recommended: 1200x400 for line display or 400x1500 for vertical).<br>
 
@@ -44,7 +44,7 @@ Toggle language for labels and numbers mapping
 - **French**: *(Default)* `?lang=fr`
 - **English**: `?lang=en`
 
-#### Example UR: `https://comingsoon?unit=metric&style=default&progress=false`
+#### Example UR: `https://orionmetrics.pronotif.tech/?unit=metric&style=default&progress=false`
 
 ## Technical Note
 **Data Accuracy:** This tool uses raw vectors from the NASA AROW API. Because these are converted from Imperial back to Metric, calculations may slightly divert from reality due to rounding and vector projection. Sorry..
