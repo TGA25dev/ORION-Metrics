@@ -110,6 +110,13 @@
     color: var(--text-color);
     line-height: 1;
     text-shadow: var(--text-shadow);
+    font-variant-numeric: tabular-nums;
+  }
+
+  number-flow.time {
+    line-height: 0.9;
+    --number-flow-mask-height: 0.2em;
+    --number-flow-mask-width: 0.45em;
   }
 
   .unit {
