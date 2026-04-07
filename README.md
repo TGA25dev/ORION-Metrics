@@ -1,6 +1,6 @@
 # ORION Metrics <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" />
 
-**ORION Metrics** is an open-source telemetry overlay for NASA's Artemis II mission. I fetches the offial [ARROW]() website data stream and provides real time unit conversion and a broadcast ready interface.
+**ORION Metrics** is an open-source telemetry overlay for NASA's Artemis II mission. I fetches the offial [ARROW](https://www.nasa.gov/missions/artemis-ii/arow/) website data stream and provides real time unit conversion and a broadcast ready interface.
 
 <img src="img/banner.png" alt="Telemetry Banner">
 
@@ -39,6 +39,13 @@ Disable or Enable the progress bar around the circles
 - **Enable**: *(Default)* `?progress=true`
 - **Disable**: `?progress=false`
 
+### Animations
+Enable or disable animated number transitions [(NumberFlow)](https://number-flow.barvian.me/vanilla)
+- **Enable**: *(Default)* `?animations=true`
+- **Disable**: `?animations=false`
+
+If `animations` is missing from the URL, the overlay automatically sets it to `animations=true`.
+
 ### Language
 Toggle language for labels and numbers mapping
 - **French**: *(Default)* `?lang=fr`
@@ -50,7 +57,7 @@ Improve visibility over different video feeds by adding a background behind the 
 - **Frosted Dark**: `?bg=darker` Adds a semitransparent blurred dark tint
 - **Solid Black**: `?bg=solid-black` Adds an opaque black background
 
-#### Example UR: `https://orionmetrics.pronotif.tech/?unit=metric&style=default&progress=false&bg=darker`
+#### Example UR: `https://orionmetrics.pronotif.tech/?unit=metric&style=default&progress=false&bg=darker&animations=true`
 
 ## Technical Note
 **Data Accuracy:** This tool uses raw vectors from the NASA AROW API. Because these are converted from Imperial back to Metric, calculations may slightly divert from reality due to rounding and vector projection. Sorry..
