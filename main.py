@@ -2,6 +2,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 import uvicorn
 import asyncio
 import os
@@ -44,6 +45,7 @@ async def fetch_telemetry_loop():
     if is_leader:
         logger.info(f"[Worker {os.getpid()}] Becomes the fetch leader. Starting background loop...")
         nasa_down = False
+        down_time = None
         try:
             while True:
                 try:
@@ -56,15 +58,17 @@ async def fetch_telemetry_loop():
                     os.rename(temp_cache, CACHE_FILE)
 
                     if nasa_down:
-                        logger.info("NASA telemetry feed is back online !")
+                        downtime_seconds = int((datetime.now(timezone.utc) - down_time).total_seconds())
+                        downtime_str = f"{downtime_seconds//60}m {downtime_seconds%60}s"
+                        logger.info(f"NASA telemetry feed is back online ! (downtime: {downtime_str})")
                         nasa_down = False
+                        down_time = None
 
                 except Exception as e:
                     if not nasa_down:
-                        logger.warning("NASA telemetry feed appears down.. Retrying every 5 seconds...")
+                        logger.warning("NASA telemetry feed appears down..")
                         nasa_down = True
-
-                    logger.error(f"[Worker {os.getpid()}] Background fetch error: {e}", exc_info=True)
+                        down_time = datetime.now(timezone.utc)
 
                 await asyncio.sleep(5)
 

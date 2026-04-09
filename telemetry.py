@@ -50,15 +50,29 @@ def get_artemis_telemetry(timeout=5):
     """Fetch telemetry snapshot and compute derived metrics
     """
 
-    meta = requests.get( #get the data
+    meta_resp = requests.get(#get the metadat
         META_URL,
         headers={"Cache-Control": "no-cache"}, #trying to prevent caching here...
         timeout=timeout,
+    )
+    meta_resp.raise_for_status()#bad status code
+    
+    if not meta_resp.text.strip():
+        raise ValueError("NASA metadata endpoint returned empty response !")
+    
+    meta = meta_resp.json()
+    generation = meta.get("generation")
 
-    ).json()
-    generation = meta["generation"] #added generation to the url as done on official website (again for cache busting)
+    if not generation:
+        raise ValueError("Metadata missing 'generation' field...")
 
-    data = requests.get(DATA_URL.format(gen=generation), timeout=timeout).json() #raw awful data
+    data_resp = requests.get(DATA_URL.format(gen=generation), timeout=timeout)
+    data_resp.raise_for_status() #also bad status code
+    
+    if not data_resp.text.strip():
+        raise ValueError("NASA data endpoint returned empty response !")
+    
+    data = data_resp.json()
 
     px, py, pz = _value(data, "2003"), _value(data, "2004"), _value(data, "2005") #position vectors in feet
     vx, vy, vz = _value(data, "2009"), _value(data, "2010"), _value(data, "2011") #velocity vectors in feet per second
