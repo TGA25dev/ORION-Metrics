@@ -99,7 +99,12 @@ def read_root():
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     user_agent = websocket.headers.get("user-agent", "")
-    client_host = websocket.client.host if websocket.client else "unknown"
+    client_host = (
+        websocket.headers.get("x-real-ip")
+        or websocket.headers.get("x-forwarded-for")
+        or websocket.headers.get("cf-connecting-ip")
+        or (websocket.client.host if websocket.client else "unknown")
+    )
 
     if is_obs_user_agent(user_agent):
         logger.info(f"OBS websocket connected from {client_host} UA: {user_agent}")
@@ -144,6 +149,13 @@ async def websocket_endpoint(websocket: WebSocket):
 
 if __name__ == "__main__":
     logger.info("Live telemetry server running !")
-    host_ip = env.get("HOST_IP", "127.0.0.1")
-    host_port = int(env.get("HOST_PORT", 8000))
-    uvicorn.run(app, host=host_ip, port=host_port, log_config=None, proxy_headers=True)
+    host_ip = env.get("HOST_IP")
+    host_port = int(env.get("HOST_PORT"))
+    uvicorn.run(
+        app, 
+        host=host_ip, 
+        port=host_port, 
+        log_config=None, 
+        proxy_headers=True, 
+        forwarded_allow_ips="*"
+    )
