@@ -160,8 +160,6 @@
     document.querySelector('.hud-wrapper:nth-child(4) .unit').textContent = "MILES";
   }
 
-  initNumberFlow();
-
   const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   let ws;
   
@@ -247,5 +245,9 @@
     document.querySelector('.hud-wrapper:nth-child(4) .progress').style.setProperty('--prog-deg', '0deg');
   };
 
-  // Start the connection
-  connectWebSocket();
+  const start = async () => {  //start NumberFlow first to avoid flickering
+    await initNumberFlow();
+    connectWebSocket();
+  };
+
+  start();

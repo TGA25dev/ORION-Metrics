@@ -113,6 +113,13 @@
     font-variant-numeric: tabular-nums;
   }
 
+  .hud-wrapper:nth-child(n+2) .time,
+  .hud-wrapper:nth-child(n+2) number-flow.time {
+    display: inline-block;
+    min-width: 7ch;
+    text-align: center;
+  }
+
   number-flow.time {
     line-height: 0.9;
     --number-flow-mask-height: 0.2em;
