@@ -1,6 +1,8 @@
 # ORION Metrics <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="25" height="25" />
 
-**ORION Metrics** is an open-source telemetry overlay for NASA's Artemis II mission. I fetches the offial [ARROW](https://www.nasa.gov/missions/artemis-ii/arow/) website data stream and provides real time unit conversion and a broadcast ready interface.
+[Français](README.fr.md) | [English](README.md)
+
+**ORION Metrics** is an open-source telemetry overlay for NASA's Artemis II mission. It fetches the offial [ARROW](https://www.nasa.gov/missions/artemis-ii/arow/) website data stream and provides real time unit conversion and a broadcast ready interface.
 
 <img src="img/banner.png" alt="Telemetry Banner">
 
