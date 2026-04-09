@@ -27,6 +27,11 @@ CACHE_FILE = "telemetry_cache.json"
 LOCK_FILE = "telemetry_cache.lock"
 env = dotenv.dotenv_values(".env")
 
+
+def is_obs_user_agent(user_agent: str) -> bool:
+    ua = user_agent.lower()
+    return "obs" in ua or "obs-browser" in ua
+
 async def fetch_telemetry_loop():
     #try to become leader and adquie lock file
     lock_f = open(LOCK_FILE, 'w')
@@ -89,6 +94,12 @@ def read_root():
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    user_agent = websocket.headers.get("user-agent", "")
+    client_host = websocket.client.host if websocket.client else "unknown"
+
+    if is_obs_user_agent(user_agent):
+        logger.info(f"OBS websocket connected from {client_host} UA: {user_agent}")
+
     await websocket.accept()
     while True:
         try:
@@ -131,4 +142,4 @@ if __name__ == "__main__":
     logger.info("Live telemetry server running !")
     host_ip = env.get("HOST_IP", "127.0.0.1")
     host_port = int(env.get("HOST_PORT", 8000))
-    uvicorn.run(app, host=host_ip, port=host_port)
+    uvicorn.run(app, host=host_ip, port=host_port, log_config=None, proxy_headers=True)
