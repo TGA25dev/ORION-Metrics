@@ -15,7 +15,11 @@ from telemetry import get_artemis_telemetry
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler("app.log", mode="a", encoding="utf-8"),
+    ],
 )
 logger = logging.getLogger(__name__)
 
@@ -34,6 +38,7 @@ async def fetch_telemetry_loop():
 
     if is_leader:
         logger.info(f"[Worker {os.getpid()}] Becomes the fetch leader. Starting background loop...")
+        nasa_down = False
         try:
             while True:
                 try:
@@ -45,7 +50,15 @@ async def fetch_telemetry_loop():
                         json.dump(telemetry, f)
                     os.rename(temp_cache, CACHE_FILE)
 
+                    if nasa_down:
+                        logger.info("NASA telemetry feed is back online !")
+                        nasa_down = False
+
                 except Exception as e:
+                    if not nasa_down:
+                        logger.warning("NASA telemetry feed appears down.. Retrying every 5 seconds...")
+                        nasa_down = True
+
                     logger.error(f"[Worker {os.getpid()}] Background fetch error: {e}", exc_info=True)
 
                 await asyncio.sleep(5)

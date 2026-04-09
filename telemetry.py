@@ -2,6 +2,7 @@ import math
 from datetime import datetime, timezone
 import requests
 from skyfield.api import load
+import logging
 
 #constants
 LAUNCH = datetime(2026, 4, 1, 22, 35, 12, tzinfo=timezone.utc)
@@ -14,7 +15,9 @@ META_URL = "https://storage.googleapis.com/storage/v1/b/p-2-cen1/o/October%2F1%2
 DATA_URL = "https://storage.googleapis.com/download/storage/v1/b/p-2-cen1/o/October%2F1%2FOctober_105_1.txt?alt=media&generation={gen}"
 
 #planetary data for distance calculations
-print("Loading planetary data...")
+logger = logging.getLogger(__name__)
+
+logger.info("Loading planetary data...")
 planets = load("de421.bsp")
 earth_obj, moon_obj = planets["earth"], planets["moon"]
 ts = load.timescale()
