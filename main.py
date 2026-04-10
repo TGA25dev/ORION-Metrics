@@ -96,6 +96,21 @@ app.mount("/web", StaticFiles(directory="web"), name="web")
 def read_root():
     return FileResponse("web/index.htm")
 
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return FileResponse("web/favicon.ico", media_type="image/x-icon")
+
+
+@app.get("/robots.txt", include_in_schema=False)
+def robots_txt():
+    return FileResponse("web/robots.txt", media_type="text/plain")
+
+
+@app.get("/sitemap.xml", include_in_schema=False)
+def sitemap_xml():
+    return FileResponse("web/sitemap.xml", media_type="application/xml")
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     user_agent = websocket.headers.get("user-agent", "")
