@@ -28,6 +28,14 @@ CACHE_FILE = "telemetry_cache.json"
 LOCK_FILE = "telemetry_cache.lock"
 env = dotenv.dotenv_values(".env")
 
+FINAL_TELEMETRY = {
+    "met": {"string": "9:17:07", "total_seconds": 839827},
+    "generation": "1775866023966328",
+    "distance_earth": {"metric": {"km": 0.0}, "imperial": {"mi": 0.0}},
+    "distance_moon": {"metric": {"km": 400717.0}, "imperial": {"mi": 248919.0}},
+    "speed": {"metric": {"kmh": 0.0}, "imperial": {"mph": 0.0}},
+}
+
 
 def is_obs_user_agent(user_agent: str) -> bool:
     ua = user_agent.lower()
@@ -127,18 +135,22 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
         try:
-            try:
-                with open(CACHE_FILE, 'r') as f:
-                    cached_data = json.load(f)
-                await websocket.send_json(cached_data)
+            #---Archived Code---
+            #
+            #try:
+            #    with open(CACHE_FILE, 'r') as f:
+            #        cached_data = json.load(f)
+            #    await websocket.send_json(cached_data)
 
-            except FileNotFoundError:
-                await websocket.send_json({"error": "No data available yet"})
+            #except FileNotFoundError:
+            #    await websocket.send_json({"error": "No data available yet"})
 
-            except json.JSONDecodeError:
-                pass #prevent crash if reading during a file write split second
-
-            await asyncio.sleep(5)
+            #except json.JSONDecodeError:
+            #    pass #prevent crash if reading during a file write split second
+            #------
+            
+            await websocket.send_json(FINAL_TELEMETRY)
+            await asyncio.sleep(3600)
 
         except WebSocketDisconnect:
             logger.info("WebSocket client disconnected")

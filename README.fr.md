@@ -2,6 +2,9 @@
 
 [English](README.md) | [Français](README.fr.md)
 
+> [!NOTE]
+> Ce projet est archivé et ne sera plus jamais mis à jour. L'équipage d'Artemis II est revenu sur Terre le 10 Avril 2026 à 2h07 (Heure de Paris) après 9 jours et 17 heures dans l'espace.<br>Made with ❤ by TGA25dev 11/04/26
+
 **ORION Metrics** est un overlay open source pour la mission Artemis II de la NASA. Le projet récupère le flux de données officiel du site [ARROW](https://www.nasa.gov/missions/artemis-ii/arow/) et convertit ces données en unités métriques en temps réel. Il permet également d'utiliser ces données dans les logiciels de diffusions tels que OBS Studio par exemple.
 
 <img src="img/banner.png" alt="Télémétrie">
